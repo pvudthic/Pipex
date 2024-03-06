@@ -3,13 +3,16 @@ CC		=	cc
 LIBFT_DIR = libft
 SRC_DIR	=	src
 OBJ_DIR =	obj
-CFLAGS	=	-Wall -Wextra -Werror -Isrc
+CFLAGS	=	-Isrc
 
 VPATH	=	src
 
 SRC		=	pipex.c \
-			pipex_util.c \
-			split_arg.c
+			check_input.c \
+			error_msg.c \
+			initialize.c \
+			initialize_helper.c \
+			main.c
 
 
 LIBFT	= $(LIBFT_DIR)/libft.a

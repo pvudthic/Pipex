@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 04:36:28 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 04:36:29 by pvudthic         ###   ########.fr       */
+/*   Created: 2024/03/07 04:36:33 by pvudthic          #+#    #+#             */
+/*   Updated: 2024/03/07 04:54:32 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../pipex.h>
 
-int	pipex(int *pipe_fd, t_pipe *data, int pid)
+int	main(int argc, char **argv, char **env)
 {
-	exit(0);
+	int		pipe_fd[2];
+	t_pipe	*data;
+	pid_t	pid;
+
+	check_input(argc, env);
+	data = initialize(argv, env);
+	if (pipex(pipe_fd, data, pid) == 0)
+		put_error_msg(errno, data);
 }

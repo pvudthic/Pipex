@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 04:38:07 by pvudthic          #+#    #+#             */
+/*   Updated: 2024/03/07 05:28:08 by pvudthic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -13,20 +25,24 @@
 # define STDOUT_FD 1
 # define STDERR_FD 2
 
-typedef	struct	l_list
+typedef struct l_list
 {
-	char	*infile;
-	char	*outfile;
+	int		fd_infile;
+	int		fd_outfile;
+	char	**env;
+	char	**env_path;
 	char	*path_1;
 	char	*path_2;
 	char	**cmd_1;
 	char	**cmd_2;
-	char	*err_msg;
-	int		err_num;
 }	t_pipe;
 
-char	**split_arg(const char *s);
-void	debugger_data(t_pipe *new);
-void	exit_handler(void);
+t_pipe	*initialize(char **argv, char **env);
+int		pipex(int *pipe_fd, t_pipe *data, int pid);
+void	check_input(int argc, char **env);
+void	put_error_msg(int err_num, t_pipe *data);
+void	clear_mem(t_pipe *data);
+void	get_envpath(t_pipe *data);
+void	memory_error(t_pipe *data);
 
 #endif
