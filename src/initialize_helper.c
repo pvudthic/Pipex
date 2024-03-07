@@ -6,11 +6,19 @@
 /*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 05:46:31 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 05:47:46 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:35:31 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../pipex.h>
+
+void open_error(char *file, int err_num)
+{
+	ft_putstr_fd("./pipex: ", STDERR_FD);
+	ft_putstr_fd(strerror(err_num), STDERR_FD);
+	ft_putstr_fd(": ", STDERR_FD);
+	ft_putstr_fd(file, STDERR_FD);
+}
 
 void	memory_error(t_pipe *data)
 {

@@ -6,7 +6,7 @@
 /*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:36:36 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 05:12:05 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:15:07 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,23 @@ static void	clear_path(t_pipe *data)
 
 static void	clear_cmd(char **cmd)
 {
+	int		i;
 	char	**cmd_arg;
 
+	i = 0;
 	cmd_arg = cmd;
-	if (*cmd_arg)
-	{
-		while (*cmd_arg)
-		{
-			free(*cmd_arg);
-			cmd_arg++;
-		}
-	}
 	if (cmd)
+	{
+		if (cmd_arg[i])
+		{
+			while (cmd_arg[i])
+			{
+				free(cmd_arg[i]);
+				i++;
+			}
+		}
 		free(cmd);
+	}
 	return ;
 }
 
