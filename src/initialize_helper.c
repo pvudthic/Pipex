@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 05:46:31 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 18:35:31 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/10 03:43:09 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../pipex.h>
 
-void open_error(char *file, int err_num)
+void	open_error(char *file, int err_num)
 {
 	ft_putstr_fd("./pipex: ", STDERR_FD);
 	ft_putstr_fd(strerror(err_num), STDERR_FD);

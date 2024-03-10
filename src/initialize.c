@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:36:22 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 18:53:51 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/10 04:31:59 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	starter_value(t_pipe *data)
 	data->env = NULL;
 }
 
-static char	*get_cmdpath(t_pipe *data, char *cmd)
+static char	*get_cmdpath(t_pipe *data, char *cmd, char *argv)
 {
 	int		i;
 	char	*path;
@@ -32,6 +32,8 @@ static char	*get_cmdpath(t_pipe *data, char *cmd)
 
 	i = 0;
 	env_paths = data->env_path;
+	if (access(argv, F_OK | X_OK) == 0)
+		return (argv);
 	while (env_paths[i])
 	{
 		path = ft_strjoin(env_paths[i], cmd);
@@ -42,7 +44,7 @@ static char	*get_cmdpath(t_pipe *data, char *cmd)
 		free(path);
 		i++;
 	}
-	ft_putstr_fd("./pipex: command not found : ", STDERR_FD);
+	ft_putstr_fd("./pipex: command not found: ", STDERR_FD);
 	ft_putstr_fd(cmd, STDERR_FD);
 	ft_putstr_fd("\n", STDERR_FD);
 	return (0);
@@ -78,7 +80,7 @@ t_pipe	*initialize(char **argv, char **env)
 	data->env = env;
 	open_files(data, argv[1], argv[4]);
 	get_command(data, argv[2], argv[3]);
-	data->path_1 = get_cmdpath(data, data->cmd_1[0]);
-	data->path_2 = get_cmdpath(data, data->cmd_2[0]);
+	data->path_1 = get_cmdpath(data, data->cmd_1[0], argv[2]);
+	data->path_2 = get_cmdpath(data, data->cmd_2[0], argv[3]);
 	return (data);
 }

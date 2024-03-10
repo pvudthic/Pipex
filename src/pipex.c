@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:36:28 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 18:58:50 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/10 04:04:29 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	parent(t_pipe *data, int *pipe_fd, int status)
 {
 	wait(&status);
 	if (data->fd_outfile == -1 || !data->path_2)
-		exit(1);
+		exit(127);
 	close(pipe_fd[END_WRITE]);
 	close(data->fd_infile);
 	if (dup2(pipe_fd[END_READ], STDIN_FD) == -1)
