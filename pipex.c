@@ -6,17 +6,24 @@
 /*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:36:28 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/10 04:04:29 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:18:49 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../pipex.h>
+#include "pipex.h"
 
-int	parent(t_pipe *data, int *pipe_fd, int status)
+int	parent(t_pipe *data, int *pipe_fd)
 {
-	wait(&status);
-	if (data->fd_outfile == -1 || !data->path_2)
+	if (data->fd_outfile == -1)
+	{
+		clear_mem(data);
+		exit(1);
+	}
+	if (!data->path_2)
+	{
+		clear_mem(data);
 		exit(127);
+	}
 	close(pipe_fd[END_WRITE]);
 	close(data->fd_infile);
 	if (dup2(pipe_fd[END_READ], STDIN_FD) == -1)
@@ -31,8 +38,16 @@ int	parent(t_pipe *data, int *pipe_fd, int status)
 
 int	child(t_pipe *data, int *pipe_fd)
 {
-	if (data->fd_infile == -1 || !data->path_1)
+	if (data->fd_infile == -1)
+	{
+		clear_mem(data);
 		exit(0);
+	}
+	if (!data->path_1)
+	{
+		clear_mem(data);
+		exit(127);
+	}
 	close(pipe_fd[END_READ]);
 	close(data->fd_outfile);
 	if (dup2(pipe_fd[END_WRITE], STDOUT_FD) == -1)
@@ -45,19 +60,24 @@ int	child(t_pipe *data, int *pipe_fd)
 	return (0);
 }
 
-int	pipex(int *pipe_fd, t_pipe *data, pid_t pid)
+int	pipex(int *pipe_fd, t_pipe *data)
 {
-	int	status;
-	int	exit_code;
+	pid_t	pid_1;
+	pid_t	pid_2;
+	int		exit_code;
 
-	status = 0;
+	exit_code = 0;
 	if (pipe(pipe_fd) == -1)
 		put_error_msg(errno, data);
-	pid = fork();
-	if (pid < 0)
+	pid_1 = fork();
+	if (pid_1 < 0)
 		put_error_msg(errno, data);
-	else if (pid == 0)
+	else if (pid_1 == 0)
 		exit_code = child(data, pipe_fd);
-	exit_code = parent(data, pipe_fd, status);
+	pid_2 = fork();
+	if (pid_2 < 0)
+		put_error_msg(errno, data);
+	else if (pid_2 == 0)
+		exit_code = parent(data, pipe_fd);
 	return (exit_code);
 }

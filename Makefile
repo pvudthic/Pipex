@@ -2,10 +2,7 @@ NAME	=	pipex
 CC		=	cc
 LIBFT_DIR = libft
 SRC_DIR	=	src
-OBJ_DIR =	obj
-CFLAGS	=	-Isrc
-
-VPATH	=	src
+CFLAGS	=	-Wall -Werror -Wextra
 
 SRC		=	pipex.c \
 			check_input.c \
@@ -17,7 +14,7 @@ SRC		=	pipex.c \
 
 LIBFT	= $(LIBFT_DIR)/libft.a
 
-SRC_OBJ = $(SRC:%.c=obj/%.o)
+SRC_OBJ = $(SRC:%.c=%.o)
 
 $(NAME): $(LIBFT) $(SRC_OBJ)
 	$(CC) $(CFLAGS) $(SRC_OBJ) $(LIBFT) -o $@
@@ -25,13 +22,13 @@ $(NAME): $(LIBFT) $(SRC_OBJ)
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(SRC_OBJ): $(OBJ_DIR)/%.o: %.c | obj
+$(SRC_OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all : $(NAME)
 
 clean:
-	rm -rf $(OBJ_DIR)/*
+	rm -rf $(SRC_OBJ)
 
 fclean: clean
 	rm -rf $(NAME)

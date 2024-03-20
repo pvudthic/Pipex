@@ -6,36 +6,44 @@
 /*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:36:36 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/10 14:01:46 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:15:04 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../pipex.h>
+#include "pipex.h"
 
 static void	clear_path(t_pipe *data)
 {
+	int	i;
+
+	i = 0;
 	if (data->path_1)
 		free(data->path_1);
 	if (data->path_2)
 		free(data->path_2);
+	if (data->env_path)
+	{
+		while (data->env_path[i])
+		{
+			free(data->env_path[i]);
+			i++;
+		}
+		free(data->env_path);
+	}
 }
 
 static void	clear_cmd(char **cmd)
 {
 	int		i;
-	char	**cmd_arg;
 
 	i = 0;
-	cmd_arg = cmd;
 	if (cmd)
 	{
-		if (cmd_arg[i])
+		while (cmd[i])
 		{
-			while (cmd_arg[i])
-			{
-				free(cmd_arg[i]);
-				i++;
-			}
+			free(cmd[i]);
+			cmd[i] = NULL;
+			i++;
 		}
 		free(cmd);
 	}
@@ -53,11 +61,16 @@ static void	close_fds(t_pipe *data)
 
 void	clear_mem(t_pipe *data)
 {
-	close_fds(data);
-	clear_cmd(data->cmd_1);
-	clear_cmd(data->cmd_2);
-	clear_path(data);
-	return ;
+	if (data)
+	{
+		close_fds(data);
+		clear_cmd(data->cmd_1);
+		clear_cmd(data->cmd_2);
+		clear_path(data);
+		free(data);
+		data = NULL;
+		return ;
+	}
 }
 
 void	put_error_msg(int err_num, t_pipe *data)
@@ -65,9 +78,6 @@ void	put_error_msg(int err_num, t_pipe *data)
 	ft_putstr_fd("./pipex : ", STDERR_FD);
 	ft_putstr_fd(strerror(err_num), STDERR_FD);
 	if (data)
-	{
 		clear_mem(data);
-		free(data);
-	}
 	exit(err_num);
 }

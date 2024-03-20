@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:36:30 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 04:55:19 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:06:32 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../pipex.h>
+#include "pipex.h"
 
 static void	check_null_env(char **env)
 {

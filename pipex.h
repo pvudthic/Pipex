@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pvudthic <pvudthic@student.42bangkok.co    +#+  +:+       +#+        */
+/*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:38:07 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/07 18:50:12 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:27:44 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct l_list
 }	t_pipe;
 
 t_pipe	*initialize(char **argv, char **env);
-int		pipex(int *pipe_fd, t_pipe *data, pid_t pid);
+int		pipex(int *pipe_fd, t_pipe *data);
 void	check_input(int argc, char **env);
 void	put_error_msg(int err_num, t_pipe *data);
 void	clear_mem(t_pipe *data);

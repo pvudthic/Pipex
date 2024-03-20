@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 17:46:24 by pvudthic          #+#    #+#             */
-/*   Updated: 2023/09/05 12:18:25 by pvudthic         ###   ########.fr       */
+/*   Created: 2024/03/07 04:36:33 by pvudthic          #+#    #+#             */
+/*   Updated: 2024/03/20 16:07:08 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+int	main(int argc, char **argv, char **env)
 {
-	if (!lst || !new)
-		return ;
-	new->next = *lst;
-	*lst = new;
+	int		pipe_fd[2];
+	int		exit_code;
+	t_pipe	*data;
+
+	check_input(argc, env);
+	data = initialize(argv, env);
+	exit_code = pipex(pipe_fd, data);
+	clear_mem(data);
+	return (exit_code);
 }
-// int	main(void)
-// {
-// 	return (0);
-// }

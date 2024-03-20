@@ -6,11 +6,11 @@
 /*   By: pvudthic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 04:36:22 by pvudthic          #+#    #+#             */
-/*   Updated: 2024/03/10 04:31:59 by pvudthic         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:09:26 by pvudthic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../pipex.h>
+#include "pipex.h"
 
 static void	starter_value(t_pipe *data)
 {
